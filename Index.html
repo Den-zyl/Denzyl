@@ -20,9 +20,9 @@
     --gray: #8a9bb0;
     --gray-dark: #4a5a6a;
     --alert: #851b1b;
+    --success: #2d6a4f;
     --shadow: 0 8px 40px rgba(13,27,42,0.18);
     --shadow-lg: 0 20px 60px rgba(13,27,42,0.28);
-    --error: #e63946;
   }
   
   *, *::before, *::after { 
@@ -157,7 +157,7 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
     max-width: 1300px;
     margin: 0 auto;
@@ -177,15 +177,64 @@
     overflow: hidden;
   }
 
+  .card.combo-card {
+    border-top: 6px solid var(--navy);
+    background: linear-gradient(to bottom, #ffffff, #fdfaf2);
+    transform: scale(1.02);
+  }
+
   .card:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-lg);
   }
+  
+  .card.combo-card:hover {
+    transform: scale(1.02) translateY(-8px);
+  }
+
+  .price-tag {
+    position: absolute;
+    top: 15px;
+    right: -35px;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .combo-card .price-tag {
+    background: var(--navy);
+    color: var(--gold);
+  }
 
   .card h3 {
     font-size: 1.4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: var(--navy);
+    margin-top: 10px;
+  }
+
+  .price-display {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+  }
+
+  .combo-price {
+    color: var(--alert);
+    font-size: 1.5rem;
+  }
+  
+  .strike-price {
+    text-decoration: line-through;
+    color: var(--gray);
+    font-size: 1rem;
+    margin-right: 8px;
   }
 
   .card p {
@@ -248,6 +297,46 @@
 
   .order-btn:hover::after {
     transform: translateX(4px);
+  }
+
+  .combo-btn {
+    background: var(--navy);
+    color: var(--gold);
+    border-color: var(--navy);
+  }
+  .combo-btn:hover {
+    background: var(--navy-light);
+    color: var(--white);
+  }
+
+  /* Floating WhatsApp Query Box */
+  .floating-wa {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 999;
+  }
+
+  .floating-wa:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  }
+
+  .floating-wa svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
   }
 
   /* Footer */
@@ -353,7 +442,7 @@
     border: 1px solid #dcdcdc;
     margin: 0 auto;
     max-width: 850px;
-    line-height: 1.65;
+    line-height: 1.7;
     text-align: left;
   }
 
@@ -457,13 +546,9 @@
   }
 
   .payment-box p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 0.5rem;
-    color: var(--gray-dark);
-  }
-
-  .payment-box strong {
-    color: var(--navy);
+    color: var(--navy-light);
   }
 
   .submit-btn {
@@ -500,11 +585,25 @@
     .grid {
       grid-template-columns: 1fr;
     }
+    .floating-wa {
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
   }
 
 </style>
 </head>
 <body>
+
+  <!-- Floating WhatsApp Query Box -->
+  <a href="https://wa.me/97517900494?text=Hi%20Denzyl%20Team!%20I%20have%20a%20quick%20query%20about%20your%20services..." class="floating-wa" target="_blank">
+    <svg viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    Have a query? Ask Us!
+  </a>
 
   <nav>
     <div class="logo">DENZYL</div>
@@ -514,7 +613,7 @@
   <header class="hero">
     <div class="fomo-tag">Acceptance is highly competitive. Let's make you undeniable.</div>
     <h1>Don't Let a Generic Essay Cost You a <span class="hero-accent">Full-Ride Scholarship</span></h1>
-    <p>Premium, comprehensively researched, and flawlessly written application documents. We specialize in helping Bhutan's Class 12 graduates secure admission and financial aid at prestigious  collages here in bhutan and abroad.</p>
+    <p>Premium, comprehensively researched, and flawlessly written application documents. We specialize in helping Bhutan's top Class 12 graduates secure admission and financial aid at prestigious global universities.</p>
   </header>
 
   <section class="services" id="services">
@@ -525,41 +624,73 @@
     <div class="grid">
       <!-- 1. CV -->
       <div class="card">
-        <h3>Academic CV</h3>
-        <p>A highly strategic resume that elevates your BHSEC scores, leadership roles, and community service into a professional format that international admission boards expect.</p>
+        <div class="price-tag">Nu. 499</div>
+        <h3>CV</h3>
+        <div class="price-display">Nu. 499</div>
+        <p>A highly strategic, structurally flawless resume that elevates your BHSEC scores, leadership roles, technical skills, and community service into a professional format that international admission boards expect.</p>
         <div class="button-group">
           <button class="btn view-btn" onclick="openPreviewModal('cv')">View Detailed Sample</button>
-          <button class="btn order-btn" onclick="openOrderModal('Academic CV')">Claim Your Spot</button>
+          <button class="btn order-btn" onclick="openOrderModal('CV')">Draft My CV</button>
         </div>
       </div>
       
       <!-- 2. Course Justification -->
       <div class="card">
-        <h3>Course Justification Essay</h3>
-        <p>Clear, logical essays required by universities to explain why you chose a specific major. We seamlessly connect your Class 12 subjects to your future career goals in Bhutan.</p>
+        <div class="price-tag">Nu. 599</div>
+        <h3>Course Justification</h3>
+        <div class="price-display">Nu. 599</div>
+        <p>Clear, logical, and thoroughly researched essays required by universities to explain your major. We seamlessly connect your Class 12 subjects to urgent socio-economic needs and career goals in Bhutan.</p>
         <div class="button-group">
           <button class="btn view-btn" onclick="openPreviewModal('courseJustification')">View Detailed Sample</button>
-          <button class="btn order-btn" onclick="openOrderModal('Course Justification')">Claim Your Spot</button>
+          <button class="btn order-btn" onclick="openOrderModal('Course Justification')">Draft Justification</button>
         </div>
       </div>
 
       <!-- 3. Personal Statement -->
       <div class="card">
-        <h3>Narrative Personal Statement</h3>
-        <p>The "Common App" style essay. A deeply personal, story-driven narrative that reveals your character, resilience, and unique worldview. Make them remember you.</p>
+        <div class="price-tag">Nu. 699</div>
+        <h3>Personal Statement</h3>
+        <div class="price-display">Nu. 699</div>
+        <p>The highly requested "Common App" style essay. A deeply personal, story-driven, evocative narrative that reveals your character, resilience, and unique worldview. We make admissions officers remember you.</p>
         <div class="button-group">
           <button class="btn view-btn" onclick="openPreviewModal('personalStatement')">View Detailed Sample</button>
-          <button class="btn order-btn" onclick="openOrderModal('Personal Statement')">Claim Your Spot</button>
+          <button class="btn order-btn" onclick="openOrderModal('Personal Statement')">Draft My Statement</button>
         </div>
       </div>
 
       <!-- 4. Academic Essay -->
       <div class="card">
-        <h3>University Admission Essay</h3>
-        <p>Analytical, prompt-specific essays (e.g., "Discuss a global issue..."). We showcase your critical thinking, thesis structuring, and flawless academic English.</p>
+        <div class="price-tag">Nu. 750</div>
+        <h3>Admission Essay</h3>
+        <div class="price-display">Nu. 750</div>
+        <p>Analytical, rigorous, prompt-specific essays (e.g., "Discuss a global economic issue..."). We showcase your critical thinking, complex thesis structuring, and flawless, high-level academic English.</p>
         <div class="button-group">
           <button class="btn view-btn" onclick="openPreviewModal('academicEssay')">View Detailed Sample</button>
-          <button class="btn order-btn" onclick="openOrderModal('Admission Essay')">Claim Your Spot</button>
+          <button class="btn order-btn" onclick="openOrderModal('Admission Essay')">Draft My Essay</button>
+        </div>
+      </div>
+
+      <!-- 5. Custom Document -->
+      <div class="card">
+        <div class="price-tag">Nu. 650+</div>
+        <h3>Any Other Document</h3>
+        <div class="price-display">Starts at Nu. 650</div>
+        <p>Need a Scholarship Appeal Letter? An email to a University Professor? A Recommendation Letter draft for your principal to sign? We craft highly tailored, persuasive documents for any specific requirement.</p>
+        <div class="button-group">
+          <button class="btn view-btn" onclick="openPreviewModal('customDoc')">View Scenario Sample</button>
+          <button class="btn order-btn" onclick="openOrderModal('Custom Document')">Specify Document</button>
+        </div>
+      </div>
+
+      <!-- 6. COMBO PACK -->
+      <div class="card combo-card">
+        <div class="price-tag">BEST VALUE</div>
+        <h3>The Complete Arsenal</h3>
+        <div class="price-display combo-price"><span class="strike-price">Nu. 1,948</span> Nu. 1,499</div>
+        <p><strong>The Ultimate Bundle.</strong> Secure your university spot with a fully coherent application package. Includes:<br><br>✓ Premium CV<br>✓ Narrative Personal Statement<br>✓ Analytical Admission Essay</p>
+        <div class="button-group">
+          <button class="btn view-btn" onclick="openPreviewModal('comboPack')">What's Included?</button>
+          <button class="btn order-btn combo-btn" onclick="openOrderModal('Arsenal Combo Pack')">Claim Combo Discount</button>
         </div>
       </div>
     </div>
@@ -611,6 +742,7 @@
                 <option value="" disabled selected>Select your level...</option>
                 <option value="Class 12 Graduate (BHSEC)">Class 12 Graduate (BHSEC)</option>
                 <option value="Currently in Class 12">Currently in Class 12</option>
+                <option value="Undergraduate">Undergraduate</option>
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -621,10 +753,10 @@
             <!-- Payment Information -->
             <div class="payment-box">
               <h4>Secure Your Slot (Advance Payment)</h4>
-              <p>To initiate the drafting process, we require a <strong>round-figure advance payment</strong> (e.g., Nu. 500 or Nu. 1,000). The remaining balance is only due upon completion of your document.</p>
-              <p style="margin-top: 10px;"><strong>Bank:</strong> Bank of Bhutan (BoB)</p>
-              <p><strong>Account Name:</strong> Denzyl Platform</p>
-              <p><strong>Account Number:</strong> 202XXXXXXX</p>
+              <p>To initiate the drafting and research process, we require a <strong>round-figure advance payment</strong> (e.g., Nu. 500). The remaining balance is only due upon your final approval of the document.</p>
+              <p style="margin-top: 15px; font-size: 1rem;"><strong>Bank:</strong> BNB (Bhutan National Bank)</p>
+              <p style="font-size: 1rem;"><strong>Account Name:</strong> Denzyl's Accountant Mr. Laxmi Prasad Dhakal</p>
+              <p style="font-size: 1rem;"><strong>Account Number:</strong> 651114241</p>
               <p style="margin-top: 10px; font-size: 0.85rem; color: var(--alert); font-weight: 600;"><em>*IMPORTANT: Take a screenshot of your advance transaction. You MUST attach it in the WhatsApp chat.</em></p>
             </div>
 
@@ -642,23 +774,25 @@
   </div>
 
 <script>
-// Comprehensive samples for Class 12 Graduates
+// Highly comprehensive and wordful samples for Class 12 Graduates
 const PREVIEWS = {
   cv: {
-    title: "Class 12 Academic Application CV",
+    title: "Comprehensive Academic Application CV",
     html: `
       <div class="document-preview">
         <h1 style="text-align: center; margin-bottom: 5px; font-size: 2.2rem; letter-spacing: 2px;">TANDIN DORJI</h1>
         <p style="text-align: center; margin-top: 0; font-size: 0.95rem; color: #555;">
-          Babesa, Thimphu, Bhutan | +975 17 90 XX XX | tandin.d.2024@email.com
+          Babesa, Thimphu, Bhutan | +975 17 90 XX XX | tandin.d.2024@email.com | linkedin.com/in/tandin-dorji
         </p>
         <hr class="doc-header-line" />
-        <h3 class="doc-section-title">Academic Objective</h3>
+        
+        <h3 class="doc-section-title">Academic & Professional Objective</h3>
         <p style="text-align: justify;">
-          A rigorous and highly analytical Class 12 Science graduate with a proven track record of academic excellence (88% aggregate) and community leadership. Seeking admission to a competitive Bachelor of Science in Data Science program to leverage computational mathematics in addressing Bhutan's emerging challenges in sustainable urban planning and ecological monitoring.
+          A rigorous, highly analytical, and community-driven Class 12 Science graduate with a proven track record of academic excellence (88.5% aggregate) and institutional leadership. Seeking admission to a competitive Bachelor of Science in Data Science program to leverage advanced computational mathematics, machine learning protocols, and statistical analysis in addressing Bhutan's emerging macroeconomic challenges in sustainable urban planning, traffic optimization, and ecological data monitoring.
         </p>
+        
         <h3 class="doc-section-title">Education</h3>
-        <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 20px;">
           <div class="doc-flex">
             <span class="doc-bold">Yangchenphug Higher Secondary School (YHSS)</span>
             <span class="doc-small">Thimphu, Bhutan</span>
@@ -667,23 +801,43 @@ const PREVIEWS = {
             <span class="doc-italic">Bhutan Higher Secondary Education Certificate (Science Stream)</span>
             <span class="doc-small">Graduated: Dec 2023</span>
           </div>
-          <ul style="margin-top: 5px; padding-left: 20px; font-size: 0.95rem;">
-            <li><strong>Overall Aggregate:</strong> 88.5% (Ranked 4th out of 250 students)</li>
-            <li><strong>Subject Proficiency:</strong> Mathematics (94%), Physics (89%), Chemistry (86%), English (85%)</li>
-            <li><strong>Honors:</strong> Recipient of the Academic Excellence Award in Pure Mathematics (2022, 2023).</li>
+          <ul style="margin-top: 8px; padding-left: 20px; font-size: 0.95rem; line-height: 1.5;">
+            <li><strong>Overall Aggregate:</strong> 88.5% (Ranked 4th out of a highly competitive cohort of 250 students).</li>
+            <li><strong>Subject Proficiency:</strong> Pure Mathematics (94%), Physics (89%), Chemistry (86%), English Communication (85%).</li>
+            <li><strong>Capstone Project:</strong> Developed a comparative statistical analysis report on the tensile strength of locally sourced bamboo versus imported steel rebar, earning the highest grade in the district science exhibition.</li>
           </ul>
         </div>
+        
         <h3 class="doc-section-title">Leadership & Extracurricular Engagement</h3>
-        <div style="margin-bottom: 15px;">
+        <div style="margin-bottom: 20px;">
           <div class="doc-flex">
-            <span class="doc-bold">Founder & President, YHSS Tech & Coding Club</span>
+            <span class="doc-bold">Founder & President, YHSS Tech & Algorithmic Coding Club</span>
             <span class="doc-small">Feb 2022 – Nov 2023</span>
           </div>
-          <ul style="margin-top: 5px; padding-left: 20px; text-align: justify; font-size: 0.95rem;">
-            <li>Established the school's first peer-led technology club, designing a 12-week introductory curriculum for Python and HTML/CSS.</li>
-            <li>Mentored 35 junior students, culminating in a school-wide mini-hackathon focused on creating digital tools for classroom management.</li>
+          <ul style="margin-top: 8px; padding-left: 20px; text-align: justify; font-size: 0.95rem; line-height: 1.5;">
+            <li>Established the school's first peer-led technology club, independently designing and implementing a 12-week introductory curriculum focusing on Python, data structures, and foundational HTML/CSS.</li>
+            <li>Mentored 35 junior students through weekly coding sprints, culminating in a school-wide mini-hackathon focused on creating digital tools for classroom management.</li>
+            <li>Programmed a functioning RFID-based student attendance tracker prototype using an Arduino Uno microcontroller and C++, which was presented to the school administrative board.</li>
           </ul>
         </div>
+        
+        <div style="margin-bottom: 20px;">
+          <div class="doc-flex">
+            <span class="doc-bold">School Prefect (Academic Council)</span>
+            <span class="doc-small">Feb 2023 – Dec 2023</span>
+          </div>
+          <ul style="margin-top: 8px; padding-left: 20px; text-align: justify; font-size: 0.95rem; line-height: 1.5;">
+            <li>Served as a primary liaison between the student body and faculty regarding curriculum pacing, mental health during board examinations, and resource allocation in the school library.</li>
+            <li>Organized and facilitated "Study-Buddy" networks prior to the board examinations, strategically pairing high-performing students with those struggling, resulting in a documented 15% overall improvement in class passing rates for core science subjects.</li>
+          </ul>
+        </div>
+
+        <h3 class="doc-section-title">Technical Proficiencies</h3>
+        <ul style="padding-left: 20px; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px;">
+          <li><strong>Programming Languages:</strong> Python (Intermediate: Pandas, NumPy), HTML5/CSS3 (Proficient), C++ (Beginner).</li>
+          <li><strong>Tools & Hardware:</strong> Arduino Microcontrollers, Microsoft Excel (Advanced Data Modeling), Git/GitHub (Basic).</li>
+          <li><strong>Languages:</strong> Dzongkha (Native/Fluent), English (Full Professional Proficiency).</li>
+        </ul>
       </div>
     `
   },
@@ -697,16 +851,16 @@ const PREVIEWS = {
           Target Program: B.Sc. Environmental Management
         </p>
         <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem; line-height: 1.3;">
-          Justification for Pursuing B.Sc. in Environmental Management
+          Bridging Ecology and Policy:<br>Justification for Pursuing B.Sc. in Environmental Management
         </h2>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          As a Class 12 Science graduate from Jakar Higher Secondary School with a strong foundation in Biology (89%) and Chemistry (85%), my academic trajectory has always been guided by a deep interest in natural systems. However, my decision to pursue a Bachelor of Science in Environmental Management is not driven solely by academic curiosity, but by a pressing national necessity. Growing up in Bumthang, I have observed the shifting patterns of our local agriculture—specifically, the increasing unpredictability of the monsoon and the drying of traditional water sources (menchus). 
+          As a Class 12 Science graduate from Jakar Higher Secondary School with a rigorous foundation in Biology (89%) and Chemistry (85%), my academic trajectory has always been intuitively guided by a deep, analytical interest in natural systems. However, my definitive decision to pursue a Bachelor of Science in Environmental Management at your esteemed institution is not driven solely by academic curiosity in a laboratory setting. Rather, it is propelled by an urgent, observable national necessity. Growing up in the high-altitude valleys of Bumthang, I have spent the last decade observing the subtle, yet devastating shifts in our local ecology—specifically, the increasing unpredictability of the monsoon rainfall patterns and the alarming, unprecedented drying of traditional natural water sources (menchus) that have sustained our agrarian communities for centuries. 
         </p>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          While Bhutan is recognized globally as a carbon-negative country, our mountainous topography makes us exceptionally vulnerable to climate change. My high school curriculum provided the theoretical mechanics of ecology, but it lacked the applied management frameworks required to address these real-world challenges. I chose the B.Sc. Environmental Management program at your esteemed university because of its interdisciplinary approach, specifically its modules on GIS mapping, sustainable resource economics, and environmental impact assessments. 
+          While the Kingdom of Bhutan is rightly recognized on the global stage as a rare carbon-negative country, our unique mountainous topography and reliance on run-of-the-river hydropower make us exceptionally vulnerable to the downstream effects of global climate change. The looming threat of Glacial Lake Outburst Floods (GLOFs) poses an existential risk to our infrastructure and our economy. My high school curriculum provided me with the vital theoretical mechanics of cellular biology and chemical ecosystems, but I acutely realized that it lacked the applied, macro-level management frameworks required to translate scientific data into actionable public policy. I explicitly chose the B.Sc. Environmental Management program because of its progressive, interdisciplinary approach. I am particularly drawn to your specific modules on Geographic Information Systems (GIS) mapping for hydrology, sustainable resource economics, and the legal frameworks surrounding environmental impact assessments. 
         </p>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          Upon completing this degree, my objective is to return to Bhutan and work alongside the National Environment Commission (NEC). I intend to specialize in localized water-shed management, applying data-driven strategies to protect the agrarian livelihoods of our rural communities while supporting our national commitment to Gross National Happiness.
+          Furthermore, your university's emphasis on field-based practicums aligns perfectly with my kinetic learning style. I do not wish to study the environment in the abstract; I intend to learn how to actively manage and negotiate its preservation against the demands of rapid urbanization. Upon completing this comprehensive degree, my concrete objective is to return to Bhutan and secure a role within the National Environment Commission (NEC) or the Watershed Management Division. I intend to specialize in localized, data-driven watershed conservation, utilizing spatial analysis to protect the agricultural livelihoods of our rural communities while structurally supporting our nation's overarching commitment to Gross National Happiness. This course is the critical bridge between my scientific aptitude and my civic duty.
         </p>
       </div>
     `
@@ -715,14 +869,29 @@ const PREVIEWS = {
     title: "Narrative Personal Statement (Common App Style)",
     html: `
       <div class="document-preview">
+        <p style="text-align: right; margin-bottom: 40px;" class="doc-small">
+          Sonam Wangchuk<br>
+          Common Application Personal Statement<br>
+          Word Count: 710<br>
+          Prompt: Share a story about a background, identity, interest, or talent that is meaningful to you.
+        </p>
         <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem; line-height: 1.3;">
           The Architecture of the Loom
         </h2>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          For the first fifteen years of my life, the rhythmic *thwack-thwack* of my mother’s backstrap loom was the metronome of my household. I saw it as a relic of the past, a grueling, analog task in a world rapidly hurtling toward digitalization. I wanted to be an architect, designing modern steel structures, not a boy covered in lint analyzing traditional textile patterns.
+          For the first fifteen years of my life, the rhythmic, percussive *thwack-thwack* of my mother’s wooden backstrap loom was the inescapable metronome of my household. In our small, slate-roofed home in eastern Bhutan, weaving was not a leisurely cultural hobby; it was the relentless economic engine that paid for my crisp school uniforms and heavy textbooks. While my peers spent their evenings playing football in the dusty schoolyard, I sat cross-legged beside the heavy wooden frame, tasked with untangling the complex geometry of raw silk threads. For a long time, I harbored a quiet, intense resentment toward the loom. I saw it as a heavy relic of the past, a grueling, analog task in a world that I knew was rapidly hurtling toward digitalization. I wanted to be a modern architect, designing soaring steel and glass structures in the capital city, not a boy covered in colorful lint analyzing traditional textile patterns.
         </p>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          My perspective shattered during my Class 11 physics class when studying structural tension. I realized that my mother’s backstrap loom operated on the exact same physical principles as a suspension bridge. The intricate *Kishuthara* patterns she wove weren't just art; they were algorithms executed by human hands, managing binary systems of over-and-under threads to create structural integrity. As I apply to university to study Architecture, I bring the lessons of the loom with me.
+          My perspective violently, beautifully shattered during a Tuesday afternoon Class 11 physics lecture when we began studying structural tension, load distribution, and the mechanics of suspension. My teacher drew a detailed diagram on the chalkboard illustrating how massive suspension bridges rely entirely on continuous, calculated tension across cables to maintain structural integrity over massive spans. I stared at the white chalk lines, and suddenly, my mind flashed back to my living room floor. I realized in a moment of pure clarity that my mother’s backstrap loom—a device where she literally strapped the warp of the fabric to her own physical body, leaning back to create the exact required tension—operated on the exact same complex physical principles. 
+        </p>
+        <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
+          The intricate *Kishuthara* patterns she wove, specifically the complex *shinglo* (tree of life) motifs, weren't just decorative art; they were mathematics made tactile. They were sophisticated algorithms executed by human hands, managing vast, binary systems of over-and-under threads to create structural integrity and tensile strength in the fabric. I rushed home that afternoon not with the usual resentment, but with a profoundly new, analytical lens. I sat beside her and asked her to explain how she calculated the exact thread count for a complex geometric motif without writing a single number down. She didn't use written equations; she used highly developed spatial memory and an innate, bodily understanding of tension and compression. It was a profound humbling. I had spent years looking exclusively to the West for examples of engineering brilliance, entirely blind to the sophisticated structural logic happening right in my own living room.
+        </p>
+        <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
+          This epiphany fundamentally altered my entire approach to design, engineering, and architecture. I began meticulously documenting her weaving patterns, translating the physical over-under movements into digital, vector-based grid matrices on my computer. I realized that true, sustainable innovation doesn’t require abandoning tradition; it requires translating its core logic into new mediums. For my senior school project, I discarded my plans to design a standard modern office building. Instead, I proposed a comprehensive structural concept for a rural community center where the interlocking, load-bearing roof beams physically mimicked the tension-bearing cross-weaves of a Bhutanese textile. It won the regional science fair, but vastly more importantly, it earned a slow, deeply proud nod from my mother.
+        </p>
+        <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
+          As I apply to your university to study Architecture and Structural Engineering, I bring the heavy, brilliant lessons of the loom with me. I no longer view traditional Bhutanese crafts as primitive relics, but as rich encyclopedias of sustainable, tension-based engineering that have survived centuries of earthquakes. I want to build structures that do not erase the cultural and ecological landscape of the Himalayas, but rather, arise organically from its inherent logic. I want to design buildings that hold their ground with the same unyielding grace, strength, and mathematical precision as a silk thread pulled tight against a wooden frame.
         </p>
       </div>
     `
@@ -731,15 +900,90 @@ const PREVIEWS = {
     title: "University Admission Analytical Essay",
     html: `
       <div class="document-preview">
+        <p style="text-align: right; margin-bottom: 40px;" class="doc-small">
+          Ugyen Pelzom<br>
+          Admission Analytical Essay<br>
+          Word Count: 680<br>
+          Prompt: Analyze a significant socio-economic challenge in your region and propose how your intended major will equip you to design a solution.
+        </p>
         <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem; line-height: 1.3;">
-          Bridging the Paradigm: Addressing Youth Unemployment in Bhutan through Digital Entrepreneurship
+          Bridging the Paradigm: <br>Addressing Youth Unemployment in Bhutan through Digital Entrepreneurship
         </h2>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          The Kingdom of Bhutan is globally celebrated for Gross National Happiness (GNH). However, beneath the serene imagery lies a pressing macroeconomic crisis: a rising youth unemployment rate for educated graduates. Bhutan’s education system produces thousands of graduates annually, yet the domestic economy—reliant on hydropower and a saturated public sector—cannot absorb them.
+          The Kingdom of Bhutan is globally celebrated for its holistic, visionary development philosophy of Gross National Happiness (GNH), which prioritizes ecological conservation and cultural preservation alongside economic growth. However, beneath this serene international imagery lies a pressing, systemic macroeconomic crisis: a rising youth unemployment rate that currently hovers around 15% to 20% for educated graduates. The core of this socio-economic challenge is a severe structural mismatch, representing a demographic dividend that is rapidly souring into a demographic liability. Bhutan’s expanding education system is successfully producing thousands of high school and university graduates annually. Yet, the domestic economy—which remains dangerously reliant on capital-intensive hydropower exports to India and a saturated public civil service sector—simply cannot generate sufficient white-collar employment to absorb this influx. Consequently, an alarming number of the nation's brightest youth are migrating overseas, resulting in a critical "brain drain" that threatens long-term national stability. To secure its economic future, Bhutan must radically pivot from a traditional job-seeking culture to a dynamic, tech-driven job-creating ecosystem. It is this critical transition that intensely drives my ambition to major in Economics with a minor in Computer Science.
         </p>
         <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
-          By combining economic theory with a practical understanding of computer science, my goal is to return to Bhutan and work with the Ministry of Industry, Commerce and Employment. I want to help draft data-driven policies that reduce bureaucratic red tape for tech startups and facilitate foreign direct investment into local tech incubators.
+          The traditional Bhutanese economic model implicitly views the Royal Government as the primary, guaranteed provider of employment. However, stark fiscal realities dictate that the civil service can no longer expand without crippling the national budget. The solution unequivocally lies in fostering a robust, innovative private sector, specifically through the avenue of digital entrepreneurship. As a landlocked country characterized by highly rugged mountainous terrain, traditional manufacturing, heavy industry, and mass-export logistics are economically unviable due to prohibitive transport costs. The digital economy, however, is borderless and weightless. By leveraging the recently established, high-speed fiber-optic internet infrastructure and forward-thinking government initiatives like the National Digital Identity (NDI) and the establishment of the TechPark in Thimphu, young Bhutanese can build software, provide remote B2B services, and engage in global e-commerce from the Himalayas. 
         </p>
+        <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
+          Yet, technological access alone is fundamentally insufficient; it must be coupled with acute financial literacy, market analysis, and supportive fiscal policy. This is precisely where my intended major in Economics becomes vital. I aim to rigorously study macroeconomic policy, specifically analyzing how developing nations construct regulatory and tax frameworks that actively incentivize startups rather than penalizing them with bureaucratic friction. During my undergraduate studies, I plan to research targeted micro-financing models, the accessibility of venture capital in emerging markets, and the efficacy of institutions like Bhutan's CSI (Cottage and Small Industry) Development Bank. Why do brilliant young Bhutanese developers struggle to secure seed funding? How can corporate tax incentives be radically restructured to support private tech incubators and attract Foreign Direct Investment (FDI) into the IT sector? 
+        </p>
+        <p style="text-align: justify; text-indent: 40px; margin-bottom: 15px;">
+          By synthesizing advanced economic theory with a practical, applied understanding of computer science algorithms, my ultimate goal is to return to Bhutan and work collaboratively with the Ministry of Industry, Commerce and Employment (MoICE) and the GovTech Agency. I want to help draft aggressive, data-driven policies that reduce bureaucratic red tape for tech startups, establish coding boot camps aligned with industry demands, and facilitate international investment. Bhutan’s youth do not lack intelligence, creativity, or ambition; they lack an enabling, financially supportive environment. My academic pursuit is entirely, fiercely dedicated to understanding how to engineer a modern economy where the youth can build prosperous futures within the borders of their own country, ensuring that Gross National Happiness translates into tangible, sustainable livelihoods for the 21st century.
+        </p>
+      </div>
+    `
+  },
+  customDoc: {
+    title: "Custom Document: Scholarship Appeal Letter",
+    html: `
+      <div class="document-preview">
+        <p style="text-align: right; margin-bottom: 40px;" class="doc-small">
+          <em>Scenario: A student narrowly missed a scholarship due to a medical emergency during final exams. This is a formal appeal to the university board.</em>
+        </p>
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 1.3rem; line-height: 1.3;">
+          Formal Appeal for Scholarship Reconsideration
+        </h2>
+        <p style="text-align: justify; margin-bottom: 15px;">
+          Dear Members of the Scholarship Admissions Board,
+        </p>
+        <p style="text-align: justify; margin-bottom: 15px;">
+          I am writing to formally request a reconsideration of my application for the Chancellor's Merit Scholarship for the upcoming Fall 2024 semester. While I understand and deeply respect the highly competitive nature of this award, I wish to provide crucial, documented context regarding a sudden medical emergency that severely impacted my final semester grades—an anomaly in an otherwise pristine academic record.
+        </p>
+        <p style="text-align: justify; margin-bottom: 15px;">
+          As my attached transcripts indicate, I maintained a 92% aggregate average from Class 9 through the mid-terms of Class 12. I served as the School Captain and led the district-winning debate team. However, three weeks prior to the BHSEC final board examinations, I contracted severe Dengue Hemorrhagic Fever, requiring a 10-day hospitalization... <em>[Document continues with highly persuasive, professional, and empathetic tone].</em>
+        </p>
+        <p style="text-align: center; margin-top: 40px; font-style: italic; color: var(--navy);">
+          Whether you need an email to a professor, a recommendation letter drafted for your principal, or an application for a specific program, we write it with absolute precision and professional etiquette.
+        </p>
+      </div>
+    `
+  },
+  comboPack: {
+    title: "The Complete Arsenal (Combo Pack Details)",
+    html: `
+      <div class="document-preview">
+        <h1 style="text-align: center; margin-bottom: 5px; font-size: 2.2rem; letter-spacing: 2px;">THE COMPLETE ARSENAL</h1>
+        <p style="text-align: center; margin-top: 0; font-size: 1.1rem; color: var(--alert); font-weight: bold;">
+          Discounted Bundle: Nu. 1,499
+        </p>
+        <hr class="doc-header-line" />
+        
+        <p style="text-align: center; font-size: 1.1rem; margin-bottom: 30px;">
+          Don't leave your university admission to chance. Application boards look for consistency. If your essay is brilliant but your CV is poorly formatted, it raises red flags. The Combo Pack ensures your entire portfolio tells one cohesive, undeniable story of excellence.
+        </p>
+
+        <h3 class="doc-section-title">What is Included?</h3>
+        
+        <div style="margin-bottom: 25px;">
+          <h4 style="color: var(--navy); margin-bottom: 5px; font-size: 1.2rem;">1. The Premium Academic CV (Value: Nu. 499)</h4>
+          <p style="text-align: justify; font-size: 0.95rem;">We will structure your high school achievements, leadership roles, and volunteer work into a globally recognized format designed to bypass ATS software and impress admission officers.</p>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+          <h4 style="color: var(--navy); margin-bottom: 5px; font-size: 1.2rem;">2. The Narrative Personal Statement (Value: Nu. 699)</h4>
+          <p style="text-align: justify; font-size: 0.95rem;">A deeply emotional, flawlessly written 600-800 word story about your background, hardships, or inspirations. We find the "hook" in your life that makes them want to accept you.</p>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+          <h4 style="color: var(--navy); margin-bottom: 5px; font-size: 1.2rem;">3. The Analytical Admission Essay (Value: Nu. 750)</h4>
+          <p style="text-align: justify; font-size: 0.95rem;">We will tackle the hardest prompt your university throws at you. We provide the critical thinking, economic/scientific analysis, and academic tone required to prove you are ready for college-level writing.</p>
+        </div>
+
+        <div style="background-color: var(--cream); padding: 20px; border-left: 4px solid var(--gold); margin-top: 30px;">
+          <p style="font-weight: bold; margin-bottom: 10px;">How it works:</p>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Click "Claim Combo Discount", fill in your basic details, and pay the Nu. 500 advance. Once connected on WhatsApp, we will send you a comprehensive questionnaire to extract all the details we need to write all three documents for you.</p>
+        </div>
       </div>
     `
   }
@@ -747,7 +991,7 @@ const PREVIEWS = {
 
 // --- Dynamic Questionnaire Logic ---
 const CONTEXT_QUESTIONS = {
-  'Academic CV': `
+  'CV': `
     <h3 class="context-header">CV Details</h3>
     <div class="form-group">
       <label>1. Target University & Major/Course</label>
@@ -813,6 +1057,32 @@ const CONTEXT_QUESTIONS = {
     <div class="form-group">
       <label>3. Key Arguments / Personal Stance to Include</label>
       <textarea class="dynamic-input" data-label="Key Arguments" rows="4" placeholder="e.g., I want to argue that Bhutan's youth unemployment can be solved through digital entrepreneurship. Mention my interest in coding..." required></textarea>
+    </div>
+  `,
+  'Custom Document': `
+    <h3 class="context-header">Custom Document Details</h3>
+    <div class="form-group">
+      <label>1. What type of document do you need?</label>
+      <input type="text" class="dynamic-input" data-label="Document Type" placeholder="e.g., Scholarship Appeal Letter, Email to Professor..." required>
+    </div>
+    <div class="form-group">
+      <label>2. Who is the recipient?</label>
+      <input type="text" class="dynamic-input" data-label="Recipient" placeholder="e.g., Admissions Board, Dr. Karma Phuntsho..." required>
+    </div>
+    <div class="form-group">
+      <label>3. What is the main message/goal of this document?</label>
+      <textarea class="dynamic-input" data-label="Core Message" rows="4" placeholder="e.g., I need to explain that I missed the deadline due to a medical emergency and ask for an extension..." required></textarea>
+    </div>
+  `,
+  'Arsenal Combo Pack': `
+    <h3 class="context-header">Combo Pack Intake</h3>
+    <div class="form-group">
+      <label>1. Target University & Course</label>
+      <input type="text" class="dynamic-input" data-label="Target Uni & Course" placeholder="e.g., Harvard University, Computer Science" required>
+    </div>
+    <div class="form-group">
+      <label>2. General Background / Notes</label>
+      <textarea class="dynamic-input" data-label="Background Info" rows="3" placeholder="Briefly describe your high school background. We will discuss the detailed prompts for the essays on WhatsApp." required></textarea>
     </div>
   `
 };
@@ -917,4 +1187,4 @@ _(Note: I am securing my slot with the advance payment and will attach the scree
 }
 </script>
 </body>
-</html>
+            </html>
